@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+
+kind: Application
+
+metadata:
+
+  name: wil42-playground
+
+  namespace: argocd
+
+spec:
+
+  project: default
+
+  source:
+
+    repoURL: https://github.com/JaDCHEH/iot-config-cjad
+
+    targetRevision: HEAD
+
+    path: dev
+
+  destination:
+
+    server: https://kubernetes.default.svc
+
+    namespace: dev
+
+  syncPolicy:
+
+    automated:
+
+      selfHeal: true
+      
+      prune: true
