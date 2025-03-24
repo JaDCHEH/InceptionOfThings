@@ -20,4 +20,5 @@ chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 
 # Print completion message
+rm -rf get-docker.sh
 echo "Installation completed! Reboot your machine or log out/log in again to apply changes."

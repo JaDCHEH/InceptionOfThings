@@ -1,0 +1,20 @@
+global:
+  hosts:
+    domain: localhost
+    externalIP: 0.0.0.0
+    https: false
+  edition: ce
+certmanager-issuer:
+  email: me@example.com
+certmanager:
+  install: false
+nginx-ingress:
+  enabled: false
+gitlab-runner:
+  install: false
+prometheus:
+  install: false
+gitlab:
+  webservice:
+    hosts:
+      - gitlab.localhost

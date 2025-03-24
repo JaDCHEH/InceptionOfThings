@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wil42-playground
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: http://gitlab-webservice-default.gitlab.svc:8181/root/iotconfig.git
+    targetRevision: HEAD
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
