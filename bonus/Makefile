@@ -10,7 +10,7 @@ clean:
 
 gitlab:
 	@echo "Installing gitlab..."
-	@./scripts/install.sh
+	@./scripts/gitlabInstall.sh
 
 deploy:
 	@echo "Deploying the application..."
@@ -19,3 +19,7 @@ deploy:
 info:
 	@echo "Project information..."
 	@./scripts/getInfo.sh
+
+expose:
+	@echo "Exposing gitlab.."
+	@./scripts/expose.sh
