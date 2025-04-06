@@ -1,0 +1,18 @@
+// testing part2 :
+vagrant ssh kmoutaouS
+
+// Check Node Status:
+kubectl get nodes
+
+// Check All Pods Are Running:
+kubectl get pods
+
+// Check Services:
+kubectl get svc
+
+// Check Ingress
+kubectl get ingress
+
+// Check from Your Host Machine (Browser or Curl)
+sudo nano /etc/hosts
+add: 192.168.56.110 app1.com app2.com random.com

@@ -1,0 +1,59 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+
+  PATH_TO_PUBLIC_KEY = File.expand_path("~/.ssh/id_rsa.pub")
+  PATH_TO_PRIVATE_KEY = File.expand_path("~/.ssh/id_rsa")
+
+  config.vm.define "kmoutaouS" do |server|
+    server.vm.hostname = "kmoutaouS"
+    server.vm.network "private_network", ip: "192.168.56.110"
+
+    server.vm.provider "virtualbox" do |vb|
+      vb.name = "kmoutaouS"
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+
+    server.vm.provision "file", source: PATH_TO_PUBLIC_KEY, destination: "/tmp/id_rsa.pub"
+    server.vm.provision "file", source: PATH_TO_PRIVATE_KEY, destination: "/tmp/id_rsa"
+    server.vm.provision "shell", inline: <<-SHELL
+      mkdir -p /root/.ssh
+      mv /tmp/id_rsa* /root/.ssh/
+      chmod 400 /root/.ssh/id_rsa*
+      chown root:root /root/.ssh/id_rsa*
+      cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+      chmod 400 /root/.ssh/authorized_keys
+      chown root:root /root/.ssh/authorized_keys
+      echo "127.0.0.1 $(hostname)" >> /etc/hosts
+    SHELL
+
+    server.vm.provision "shell", path: "scripts/install-k3s-server.sh"
+  end
+
+  config.vm.define "kmoutaouSW" do |worker|
+    worker.vm.hostname = "kmoutaouSW"
+    worker.vm.network "private_network", ip: "192.168.56.111"
+
+    worker.vm.provider "virtualbox" do |vb|
+      vb.name = "kmoutaouSW"
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+
+    worker.vm.provision "file", source: PATH_TO_PUBLIC_KEY, destination: "/tmp/id_rsa.pub"
+    worker.vm.provision "file", source: PATH_TO_PRIVATE_KEY, destination: "/tmp/id_rsa"
+    worker.vm.provision "shell", inline: <<-SHELL
+      mkdir -p /root/.ssh
+      mv /tmp/id_rsa* /root/.ssh/
+      chmod 400 /root/.ssh/id_rsa*
+      chown root:root /root/.ssh/id_rsa*
+      cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+      chmod 400 /root/.ssh/authorized_keys
+      chown root:root /root/.ssh/authorized_keys
+      echo "127.0.0.1 $(hostname)" >> /etc/hosts
+      echo "192.168.56.110 kmoutaouS" >> /etc/hosts
+    SHELL
+
+    worker.vm.provision "shell", path: "scripts/install-k3s-worker.sh"
+  end
+end
