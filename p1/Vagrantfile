@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
+  config.vm.box_url = "https://vagrantcloud.com/ubuntu/boxes/focal64"
 
   PATH_TO_PUBLIC_KEY = File.expand_path("~/.ssh/id_rsa.pub")
   PATH_TO_PRIVATE_KEY = File.expand_path("~/.ssh/id_rsa")

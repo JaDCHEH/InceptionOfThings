@@ -3,6 +3,12 @@
 echo "Updating system..."
 sudo apt-get update -y
 
+echo "[+] Installing net-tools"
+sudo apt-get install -y net-tools
+sudo ln -s /sbin/ifconfig /usr/local/bin/ifconfig
+
+sudo ip link add eth1 type dummy && sudo ip addr add 192.168.56.111/24 dev eth1 && sudo ip link set eth1 up
+
 echo "Installing K3s (server mode)..."
 curl -sfL https://get.k3s.io | sh -
 
