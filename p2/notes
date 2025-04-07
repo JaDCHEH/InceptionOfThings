@@ -10,8 +10,14 @@ kubectl get pods
 // Check Services:
 kubectl get svc
 
-// Check Ingress
+// Check Ingress:
 kubectl get ingress
+
+kubectl get deployment
+
+kubectl describe nodes
+
+kubectl describe pods
 
 // Check from Your Host Machine (Browser or Curl)
 sudo nano /etc/hosts
