@@ -2,7 +2,7 @@
 vagrant ssh kmoutaouS
 
 // Check Node Status:
-kubectl get nodes
+kubectl get nodes -o wide
 
 // Check All Pods Are Running:
 kubectl get pods
