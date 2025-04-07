@@ -40,7 +40,7 @@ spec:
         configMap:
           name: app2-html
 ---
-# Service to load balance between replicas
+# Service
 apiVersion: v1
 kind: Service
 metadata:
